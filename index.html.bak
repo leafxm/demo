@@ -48,7 +48,7 @@
 			new Array(new Array(0,0,0,0,0,0),new Array(0,0,0,0,0,0),new Array(0,0,0,0,0,0),new Array(0,0,0,0,0,0),new Array(2,4,0,0,0,0),new Array(4,0,4,4,0,0)),
 			new Array(new Array(0,0,0,8,0,0),new Array(0,0,0,4,0,0),new Array(0,0,0,4,0,0),new Array(0,0,0,0,0,0),new Array(0,0,0,0,0,0),new Array(0,0,0,0,0,0)),
 			new Array(new Array(0,0,0,0,0,0),new Array(0,0,0,0,0,0),new Array(0,0,0,0,0,0),new Array(0,0,0,0,4,0),new Array(0,0,0,0,0,0),new Array(0,0,0,0,0,0)),
-			new Array(new Array(0,0,0,0,0,0),new Array(0,0,0,0,0,0),new Array(0,0,0,0,0,0),new Array(0,0,0,0,6,10),new Array(0,0,0,4,0,0),new Array(0,0,0,0,0,0))
+			new Array(new Array(0,0,0,0,0,0),new Array(0,0,0,0,0,0),new Array(0,0,0,0,0,0),new Array(0,0,0,0,6,10),new Array(0,0,0,4,0,0),new Array(0,0,0,0,0,0)),
 		)};
 		map.clearOverlays();
 		window.clearInterval(TimeID);
