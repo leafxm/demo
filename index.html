@@ -6,13 +6,20 @@
     <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=vVx4BApDDaqHqv49noQqLiD1"></script>
 	<style>
 		#map{height:600px;width:100%;}
+		.explain{height:200px;width:100%;}
 	</style>
-    <title>地图效果展示</title>
+    <title>人员聚集迁徙效果展示</title>
 </head>
 
-<body>
+<body onload="getMove()">
        
 <div id="map"></div>
+<div class=explain>
+<h1>说明</h1>
+<p>在本例中，展示了北京邮电大学校内六个主要地点人员驻留和移动情况。</p>
+<p>使用圆形标识表示地点，标识中数字代表当前地点有多少人。使用移动的小定位标识表示人员移动方向，下面的数字表示移动人数。</p>
+<p>本例的实现方式，请见<a href="http://leafxm.com/">我的博客</a></p>
+</div>
 
 <script>
 
@@ -43,7 +50,7 @@
 
 		var data= {"N":new Array(new Array(10,5,5,0,0,0),new Array(6,4,3,7,0,0),new Array(0,0,0,20,0,0),new Array(2,0,0,0,6,12),new Array(8,4,4,4,0,0),new Array(0,0,0,20,0,0),new Array(0,0,0,16,4,0),new Array(0,0,0,4,6,10)),
 		"M":new Array(new Array(new Array(0,0,0,4,0,0),new Array(0,0,0,1,0,0),new Array(0,0,0,2,0,0),new Array(0,0,0,0,0,0),new Array(0,0,0,0,0,0),new Array(0,0,0,0,0,0)),
-			new Array(new Array(0,0,0,6,0,0),new Array(0,0,0,4,0,0),new Array(0,0,0,7,0,0),new Array(0,0,0,0,0,0),new Array(0,0,0,0,0,0),new Array(0,0,0,0,0,0)),
+			new Array(new Array(0,0,0,6,0,0),new Array(0,0,0,4,0,0),new Array(0,0,0,3,0,0),new Array(0,0,0,0,0,0),new Array(0,0,0,0,0,0),new Array(0,0,0,0,0,0)),
 			new Array(new Array(0,0,0,0,0,0),new Array(0,0,0,0,0,0),new Array(0,0,0,0,0,0),new Array(2,0,0,0,6,12),new Array(0,0,0,0,0,0),new	Array(0,0,0,0,0,0)),
 			new Array(new Array(0,0,0,0,0,0),new Array(0,0,0,0,0,0),new Array(0,0,0,0,0,0),new Array(0,0,0,0,0,0),new Array(2,4,0,0,0,0),new Array(4,0,4,4,0,0)),
 			new Array(new Array(0,0,0,8,0,0),new Array(0,0,0,4,0,0),new Array(0,0,0,4,0,0),new Array(0,0,0,0,0,0),new Array(0,0,0,0,0,0),new Array(0,0,0,0,0,0)),
@@ -124,7 +131,7 @@
 			movei=0;
 			window.clearInterval(moveTime);
            j = 0;
-           window.clearInterval(TimeID);
+           window.clearTimeout(TimeID);
          }	
     }
 	
@@ -180,7 +187,7 @@
 			window.clearInterval(moveTime);
 		}
 	}	
-	getMove();
+	
 	
 </script>
 </body>
