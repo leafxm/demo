@@ -3,8 +3,6 @@
 <head>
 <meta charset="utf-8" />
 <title>地图定位</title>
-
- 
  <style>
 		html,body{padding:0;margin:0;font-family:"微软雅黑";height:100%;background:#99cccc;width:100%;}
 		h1{padding:0;margin:0;}
@@ -63,6 +61,7 @@ var top_left_control = new BMap.ScaleControl({anchor: BMAP_ANCHOR_TOP_LEFT});// 
 var top_left_navigation = new BMap.NavigationControl();
 map.addControl(top_left_control);  //添加控件和比例尺     
 map.addControl(top_left_navigation); 
+map.ableScrollWheelZoom();
 	
 var options = {renderOptions: {map: map, panel: "results", pageCapacity:5,  autoViewport: true,selectFirstResult: false}};
 var myLocalsearch = new BMap.LocalSearch(map,options);

@@ -61,6 +61,7 @@ var top_left_control = new BMap.ScaleControl({anchor: BMAP_ANCHOR_TOP_LEFT});// 
 var top_left_navigation = new BMap.NavigationControl();
 map.addControl(top_left_control);  //添加控件和比例尺     
 map.addControl(top_left_navigation); 
+map.enableScrollWheelZoom();
 	
 var options = {renderOptions: {map: map, panel: "results", pageCapacity:5,  autoViewport: true,selectFirstResult: false}};
 var myLocalsearch = new BMap.LocalSearch(map,options);
