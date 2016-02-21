@@ -1,0 +1,27 @@
+	html,body{padding:0;margin:0;font-family:"微软雅黑";height:100%;background:#99cccc;width:100%;}
+	h1{padding:0;margin:0;}
+/* header style */ 	
+	#header{height:60px;width:100%;background:#666666;color:white;text-align:center;line-height:50px;}
+		
+/* wrap style */
+	.wrap{height:auto;min-height:740px;width:100%;}
+	/* choosebox style */
+		.choosebox{padding:10px;}
+		.choosebox ul li{float:left;margin-left:35px;list-style-type:none;}
+		.choosebox ul li a{text-decoration:none;color:#000;}
+		#btn{margin-left:120px;margin-top:8px;}
+
+	.explain{margin-top:100px;margin-left:3%;}
+	/* 包含地图比较的的弹出层 */
+		#div_show{background:#fff;height:650px;width:94%;min-width:1000px;position:absolute;left:2%;top:150px;z-index:100;display:none;padding-left:-10px;}
+		.div_show_title{float:left;filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#12a3f4', endColorstr='#0e86c9', GradientType=0);clear: both;display: block;background: rgb(14, 134, 201);color: #FFFFFF;font-weight: 700;position: relative;height: 30px;width:100%;}
+		.div_show_font{color: #FFFFFF;float: left;font-weight: 700;margin: 0.4em 0 0.4em 10px;}
+		#div_show_btn{float: right;margin: 0.4em 10px 0.4em 0; }
+		.chooseThree{float:left;height:560px;width:31%;margin-left:1%;border:1px solid black;margin-top:5px;}
+		.chooseTwo{float:left;height:560px;width:47%;margin-left:1%;border:1px solid black;margin-top:5px;}
+		.div2clear{display:none;}
+		.opeNameThree{float:left;width:31%;margin-left:1%;margin-top:5px;text-align:center;}
+		.opeNameTwo{float:left;width:47%;margin-left:1%;margin-top:5px;text-align:center;}
+	
+/*footer style */
+	#footer{width:100%;height:30px;padding:5px 0;text-align:right;color:white;line-height:8px;background-color:#666666;}

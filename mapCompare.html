@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>地图比较</title>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+  <link href="css/mapCompare/mapc.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+	<div id="header"><h1>地图比较</h1></div>        
+	<div class="wrap">
+		<div class="choosebox">
+			<span style="margin-left:20px;">运营商</span>
+			 <ul>
+				   <li><a href="#"><input type="checkbox"  name="operator" value="移动" checked>&nbsp;移动</a></li>
+					<li><a href="#"><input type="checkbox" name="operator" value="联通"  checked>&nbsp; 联通</a></li>
+					<li><a href="#"><input type="checkbox" name="operator" value="电信" checked>&nbsp; 电信</a></li>
+			  </ul>
+			  <input type="button" value="确定" id="btn"/>
+		 </div>
+		 <div class="explain">
+			<h1>说明</h1>
+			<p>本例以不同颜色网格表示该区域网络性能优劣，选择不同运营商，点击确定，弹出运营商对比图。</p>		
+		</div>
+		 <div id="div_show"> 
+			<div class="div_show_title">
+				<div class="div_show_font">对比</div> 
+				<input type="button" value="关闭" id="div_show_btn"  />
+			</div>
+			
+			 <div id="mapDiv1" ></div>
+			 <div id="mapDiv2" ></div>
+			 <div id="mapDiv3" ></div>
+			 <div style="margin-top:580px;">
+				<span id="opeName1"></span>
+				<span id="opeName2"></span>
+				<span id="opeName3"></span>
+			 </div>
+		 </div>
+		
+	</div>	
+	<div id="footer">
+		<p> Designed by leafxm</p>
+	</div>
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=vVx4BApDDaqHqv49noQqLiD1"></script>
+	<script type="text/javascript" src="js/mapCompare/mapc.js"></script>
+</body>
+</html>
