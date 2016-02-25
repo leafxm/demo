@@ -3,192 +3,37 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=vVx4BApDDaqHqv49noQqLiD1"></script>
+ 
 	<style>
-		#map{height:600px;width:100%;}
-		.explain{height:200px;width:100%;}
+		#map{height:600px;width:100%;border:1px solid black;}
+		.explain{height:200px;width:100%;padding-top:5px;}
+		.legend{width:auto;position:absolute;right:20px;padding:10px;background-color:#D9D9DB;z-index: 10;display: block;opacity:0.8;}
+		.coloris{ width:15px; height:15px;float:left;margin-right:2px;opacity:0.4;}
+		.legend p{margin-bottom: 1px;margin-top: 0px;}
 	</style>
     <title>人员聚集迁徙效果展示</title>
 </head>
 
 <body onload="getMove()">
-       
+
+<div class="legend">
+<p><div class='coloris' style='background-color:#ffcc00;'></div>＜30人</p>
+<p><div class='coloris' style='background-color:#ff9900;'></div>30~60人</p>
+<p><div class='coloris' style='background-color:#ff6600;'></div>60~90人</p>
+<p><div class='coloris' style='background-color:#ff3300;'></div>90~120人</p>
+<p><div class='coloris' style='background-color:#ff0000;'></div>120人以上</p>
+</div>	
 <div id="map"></div>
 <div class=explain>
+<input type='button' id='stop' value="暂停"/>
+<input type='button' id='start' value="从头开始"/>
 <h1>说明</h1>
 <p>在本例中，展示了北京邮电大学校内六个主要地点人员驻留和移动情况。</p>
 <p>使用圆形标识表示地点，标识中数字代表当前地点有多少人。使用移动的小定位标识表示人员移动方向，下面的数字表示移动人数。</p>
 <p>本例的实现方式，请见<a href="http://leafxm.com/2016/02/20/mapShow/">我的博客</a></p>
+
 </div>
-
-<script>
-
-	var map = new BMap.Map("map",{minZoom:18,maxZoom:19});          // 创建地图实例
-    var pt_center = new BMap.Point(116.364506, 39.969775);
-    map.centerAndZoom(pt_center,19 );             // 初始化地图，设置中心点坐标和地图级别
-    map.disableScrollWheelZoom(); // 不允许滚轮缩放
-	
-	var top_left_control = new BMap.ScaleControl({anchor: BMAP_ANCHOR_TOP_LEFT});// 左上角，添加比例尺
-	var top_left_navigation = new BMap.NavigationControl();  //左上角，添加默认缩放平移控件
-	map.addControl(top_left_control);  //添加控件和比例尺     
-	map.addControl(top_left_navigation); 
-	
-	var j=0;
-    var TimeID=null;
-	
-	function  Bpoint(Longitude,Latitude) //声明对象
-     {    
-        this.Latitude= Latitude; 
-		this.Longitude = Longitude;
-     }
-	var lonlat=new Array();
-	lonlat.push(new Bpoint(116.363419, 39.970383),new Bpoint(116.362642, 39.968984),new Bpoint(116.367057, 39.96899),new Bpoint(116.365332, 39.970335),new Bpoint(116.363302, 39.969775),new Bpoint(116.365463, 39.969246))
-	//分次显示的函数
-	function getMove(){   
-	    j = 0
-	    window.clearInterval(TimeID);
-
-		var data= {"N":new Array(new Array(10,5,5,0,0,0),new Array(6,4,3,7,0,0),new Array(0,0,0,20,0,0),new Array(2,0,0,0,6,12),new Array(8,4,4,4,0,0),new Array(0,0,0,20,0,0),new Array(0,0,0,16,4,0),new Array(0,0,0,4,6,10)),
-		"M":new Array(new Array(new Array(0,0,0,4,0,0),new Array(0,0,0,1,0,0),new Array(0,0,0,2,0,0),new Array(0,0,0,0,0,0),new Array(0,0,0,0,0,0),new Array(0,0,0,0,0,0)),
-			new Array(new Array(0,0,0,6,0,0),new Array(0,0,0,4,0,0),new Array(0,0,0,3,0,0),new Array(0,0,0,0,0,0),new Array(0,0,0,0,0,0),new Array(0,0,0,0,0,0)),
-			new Array(new Array(0,0,0,0,0,0),new Array(0,0,0,0,0,0),new Array(0,0,0,0,0,0),new Array(2,0,0,0,6,12),new Array(0,0,0,0,0,0),new	Array(0,0,0,0,0,0)),
-			new Array(new Array(0,0,0,0,0,0),new Array(0,0,0,0,0,0),new Array(0,0,0,0,0,0),new Array(0,0,0,0,0,0),new Array(2,4,0,0,0,0),new Array(4,0,4,4,0,0)),
-			new Array(new Array(0,0,0,8,0,0),new Array(0,0,0,4,0,0),new Array(0,0,0,4,0,0),new Array(0,0,0,0,0,0),new Array(0,0,0,0,0,0),new Array(0,0,0,0,0,0)),
-			new Array(new Array(0,0,0,0,0,0),new Array(0,0,0,0,0,0),new Array(0,0,0,0,0,0),new Array(0,0,0,0,4,0),new Array(0,0,0,0,0,0),new Array(0,0,0,0,0,0)),
-			new Array(new Array(0,0,0,0,0,0),new Array(0,0,0,0,0,0),new Array(0,0,0,0,0,0),new Array(0,0,0,0,6,10),new Array(0,0,0,4,0,0),new Array(0,0,0,0,0,0))
-		)};
-		map.clearOverlays();
-		window.clearInterval(TimeID);
-		delay(data);
-	}
-	
-		
-	 var movei=0;
-     var moveTime=null;
-	
-	function delay(data){ 
-		if(j<data.N.length) {
-			map.clearOverlays();
-			length="24px"
-			for (var i=0;i<lonlat.length;i++){	
-				var myLabel = new BMap.Label("<p>"+data.N[j][i]+"</p>",     //为lable填写内容
-               	{
-					position: new BMap.Point(lonlat[i].Longitude,lonlat[i].Latitude)});           //label的位置
-					myLabel.setStyle({       //给label设置样式，任意的CSS都是可以的
-  		    		height:length ,                //高度
-    				width:length,                 //宽
-					borderRadius:"12px",
-					opacity:"0.8",			//透明度
-					border:"0", 
-					color:"black",
-					fontSize:"22px",               //字号
-					 //fontWeight:"bold",
-					textAlign:"center",            //文字水平居中显示
-					lineHeight:"20px",            //行高，文字垂直居中显示
-				});
-				//myLabel.setStyle({background:"#0099CC", });		
-		   		var a0=5,a1=10,a2=15,a3=20  														
-				//根据信号强度不同设置不同颜色							
-				if(data.N[j][i]<a0){ 
-					myLabel.setStyle({background:"#ffcc00", }); 
-				}
-				else if(data.N[j][i]<a1) {   
-					myLabel.setStyle({background:"#ff9900",});    
-				}
-				else if(data.N[j][i]<a2) {   	
-					myLabel.setStyle({background:"#ff6600",});          					
-				}
-				else if(data.N[j][i]<a3) {   
-					myLabel.setStyle({background:"#ff3300",});                			
-				}
-				else  {   
-					myLabel.setStyle({background:"#ff0000",});                 			
-				}
-				map.addOverlay(myLabel);
-				if(j==data.N.length-1){
-				var jj=j-1}else{var jj=j}
-					
-				lon=0.00015/32*12;
-				lat=0.00011/32*12;	
-				for(var k=0;k<6;k++){
-					if(data.M[jj][i][k]!=0){
-						var polyline = new BMap.Polyline([
-							new BMap.Point(lonlat[i].Longitude+lon, lonlat[i].Latitude-lat),new BMap.Point(lonlat[k].Longitude+lon, lonlat[k].Latitude-lat)], {strokeColor:"#FFCC00", strokeWeight:3, strokeOpacity:0.8});
-							map.addOverlay(polyline);
-    
-					}
-				}
-			}
-			window.clearInterval(moveTime);
-			//alert(data.M[j])
-			moveTime= window.setInterval(function(){delayMove(data.M[j-1]);}, 500);			
-			j++;
-			TimeID = window.setTimeout(function(){delay(data);}, 5000);
-        }
-        else
-        { 
-            ////alert('end');
-			movei=0;
-			window.clearInterval(moveTime);
-           j = 0;
-           window.clearTimeout(TimeID);
-         }	
-    }
-	
-	var moveMarker=new Array();
-	 function delayMove(data){
-	
-		var movei_max=8;
-		lon=0.00015/32*12;
-		lat=0.00011/32*12;	
-		if(movei<movei_max){
-			var markerNum=0;
-			for(var i=0;i<6;i++){
-				for(var k=0;k<6;k++){ 
-					if(data[i][k]!=0){								  
-						map.removeOverlay(moveMarker[markerNum]);		
-						var d_lon=(lonlat[k].Longitude-lonlat[i].Longitude)/(movei_max)*(movei+1);
-						var d_lat=(lonlat[k].Latitude-lonlat[i].Latitude)/(movei_max)*(movei+1);
-						var marker= new BMap.Label("<p>"+data[i][k]+"</p>",     //为lable填写内容
-						{		
-							offset:new BMap.Size(-16,-16),                  //label的偏移量，为了让label的中心显示在点上
-							position:new BMap.Point(lonlat[i].Longitude+lon+d_lon,lonlat[i].Latitude-lat+d_lat)});                                //label的位置
-						marker.setStyle({                                   //给label设置样式，任意的CSS都是可以的
-							fontSize:"14px",               //字号
-							border:"0",                    //边
-							height:"25px",                //高度
-							width:"25px",                 //宽
-							textAlign:"center",            //文字水平居中显示
-							//lineHeight:"20px",            //行高，文字垂直居中显示
-							background:"url(img/trace/marker.png)",    //背景图片
-							color:"blue",
-							fontWeight:"bold",
-						});
-						moveMarker[markerNum]=marker;
-						markerNum++;
-						map.addOverlay(marker);	
-					}
-				}
-			}
-			movei++;
-		}else{
-			var markerNum=0;
-			for(var i=0;i<6;i++){
-				for(var k=0;k<6;k++){ 
-					if(data[i][k]!=0){
-						//alert(markerNum);						
-						map.removeOverlay(moveMarker[markerNum]);
-						markerNum++;
-					}
-					
-				}
-			}
-			movei=0;
-			window.clearInterval(moveTime);
-		}
-	}	
-	
-	
-</script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=vVx4BApDDaqHqv49noQqLiD1"></script>
+<script type="text/javascript" src="js/trace/trace.js" ></script>
 </body>
 </html>

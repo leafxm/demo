@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>地图定位</title>
+ <style>
+		html,body{padding:0;margin:0;font-family:"微软雅黑";height:100%;background:#99cccc;width:100%;}
+		h1{padding:0;margin:0;}
+		title p{margin:5px;}
+		#header{height:60px;width:100%;background:#666666;color:white;text-align:center;line-height:50px;}
+		.wrap{height:auto;width:100%;}
+		.left{float:left;width:200px;height:100%;min-height:900px;background-color:#ccccff;padding-left:8px;}
+		.title{font-size:20px;font-weight:550;margin:20px 0;}
+		.btn{margin-left:120px;margin-top:8px;}
+		.right{margin-left:200px;height:100%;}	
+		.explain{height:17px;width:100%;margin-top:10px;margin-left:20px;padding-bottom:10px;}
+		.floatfix:after{content:"";display:table;clear:both;}
+		#footer{position:relative;margin-top:-30px;width:100%;height:30px;text-align:right;color:white;line-height:6px;background-color:#666666;}
+
+	</style>
+</head>
+
+<body>
+	<div id="header"><h1>地图定位</h1></div>        
+	<div class="wrap floatfix">
+		<div class="left">
+			<h2>搜索栏</h2>
+			<input type="button" id="btn_clear" value="洗刷地图"  />
+
+			<p class="title">经纬度定位</p>
+			<p>经度: <input id="longitude" type="text"placeholder="请输入经度..." style="width:130px; margin-right:10px;" /></p>
+			<p>纬度: <input id="latitude" type="text" placeholder="请输入纬度..."style="width:130px; margin-right:10px;" /></p>
+			<input type="button"  id="btn_lsearch" value="精确搜索" class="btn"/>
+
+			<p class="title">地名定位</p>
+			<input style="width:180px;" type="text" placeholder="请输入地址..." id="fuzzysearch" />
+			<input  type="button" id="btn_fsearch" value="模糊搜索" class="btn"/>	  
+			<div style="width:190px;max-height:190px;" id="results"></div>	
+		</div>
+
+		<div class="right" >
+			<div id="map_container" style="height:720px;background-color:white;color:gray;">地图拼命显示中...</div>
+			<div class="explain">
+				<h1>说明</h1>
+				<p>左侧搜索栏可以实现已知经纬度精确定位以及根据地点名称模糊定位两种地图地址搜索方式。</p>		
+				<p>点击地图某一点，可以得到该点经纬度和像素坐标。右键点击红框内容，在地图上清除该点。</p>
+				<p>点击“洗刷地图”按键将地图上的标识清除。</p>
+			</div>
+		</div>		
+	</div>
+	<div id="footer">
+		<p> Designed by leafxm</p>
+	</div>
+<!--
+ <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=vVx4BApDDaqHqv49noQqLiD1"></script>
+<script>
+var map = new BMap.Map('map_container', {defaultCursor: 'default'});
+var pt_center = new BMap.Point(116.365484,39.969626);
+map.centerAndZoom(pt_center,19 );  
+var top_left_control = new BMap.ScaleControl({anchor: BMAP_ANCHOR_TOP_LEFT});// 左上角，添加比例尺
+var top_left_navigation = new BMap.NavigationControl();
+map.addControl(top_left_control);  //添加控件和比例尺     
+map.addControl(top_left_navigation); 
+map.enableScrollWheelZoom();
+	
+var options = {renderOptions: {map: map, panel: "results", pageCapacity:5,  autoViewport: true,selectFirstResult: false}};
+var myLocalsearch = new BMap.LocalSearch(map,options);
+
+//智能搜索
+document.getElementById("btn_fsearch").addEventListener("click", function(){
+    var fSearchValue = document.getElementById("fuzzysearch").value;
+    myLocalsearch.search(fSearchValue); 
+});
+//洗刷地图
+document.getElementById("btn_clear").addEventListener("click", function(){
+	map.clearOverlays();
+	myLocalsearch.clearResults();
+});
+
+//经纬度定点
+document.getElementById("btn_lsearch").addEventListener("click", function(){
+	if(document.getElementById("longitude").value != "" && document.getElementById("latitude").value != ""){
+		map.clearOverlays(); 
+		var new_point = new BMap.Point(document.getElementById("longitude").value,document.getElementById("latitude").value);
+		var marker = new BMap.Marker(new_point);  // 创建标注
+		map.addOverlay(marker);              // 将标注添加到地图中
+		map.panTo(new_point);      
+	}
+});
+
+//地图点击点显示经纬度等信息 
+map.addEventListener('click', function(e){
+	var info = new BMap.InfoWindow('', {width: 260});
+	var projection = this.getMapType().getProjection();
+ 
+	var lngLat = e.point;
+	var lngLatStr = "经纬度：" + lngLat.lng + ", " + lngLat.lat;
+ 
+	var worldCoordinate = projection.lngLatToPoint(lngLat);
+	var worldCoordStr = "平面坐标：" + worldCoordinate.x + ", " + worldCoordinate.y;
+ 
+	var pixelCoordinate = new BMap.Pixel(Math.floor(worldCoordinate.x * Math.pow(2, this.getZoom() - 18)),
+	Math.floor(worldCoordinate.y * Math.pow(2, this.getZoom() - 18)));
+	var pixelCoordStr = "像素坐标：" + pixelCoordinate.x + ", " + pixelCoordinate.y;
+
+	var tileCoordinate = new BMap.Pixel(Math.floor(pixelCoordinate.x / 256),
+	Math.floor(pixelCoordinate.y / 256));
+	var tileCoordStr = "图块坐标：" + tileCoordinate.x + ", " + tileCoordinate.y;
+ 
+	var viewportCoordinate = map.pointToPixel(lngLat);
+	var viewportCoordStr = "可视区域坐标：" + viewportCoordinate.x + ", " +
+	viewportCoordinate.y;
+	var overlayCoordinate = map.pointToOverlayPixel(lngLat);
+	var overlayCoordStr = "覆盖物坐标：" + overlayCoordinate.x + ", " +
+	overlayCoordinate.y;
+ 
+	 //这里只显示经纬度和像素坐标
+	info.setContent(lngLatStr +pixelCoordStr);//+ worldCoordStr  + tileCoordStr +viewportCoordStr + overlayCoordStr);
+	map.openInfoWindow(info, lngLat);
+	//在点击的点上添加marker
+	var marker = new BMap.Marker(new BMap.Point(lngLat.lng,lngLat.lat)); // 创建点
+	map.addOverlay(marker);
+	var opts = {
+		  position : lngLat,    // 指定文本标注所在的地理位置
+		  offset   : new BMap.Size(5, 5)    //设置文本偏移量
+		}
+	//添加label显示经纬度和像素坐标信息
+	var label = new BMap.Label(lngLatStr +'</br>'+ pixelCoordStr, opts);  // 创建文本标注对象
+			label.setStyle({
+				 color : "black",
+				 fontSize : "12px",
+				// height : "20px",
+				 lineHeight : "20px",
+				 fontFamily:"微软雅黑"
+			 });
+		 
+	map.addOverlay(label);  
+//鼠标在label上右击去除marker和坐标信息
+	label.addEventListener("rightclick", function () {
+        map.removeOverlay(marker);
+		map.removeOverlay(label);
+		 
+    });
+});
+
+</script>-->
+</body>
+</html>
