@@ -50,7 +50,6 @@
 	
 	
 	function delay(){ 
-	console.log("delay",j,movei);
 		if(j<data.N.length) {
 			//地图显示表示地点的圆点，用不同颜色表示人数不同
 			map.clearOverlays();
@@ -120,7 +119,6 @@
 	//设置全局变量用于删除上次轨迹上的标注
 	var moveMarker=new Array();
 	function delayMove(){
-		console.log("delayMove",j,movei);
 		var movei_max=8;
 		lon=0.00015/32*12;
 		lat=0.00011/32*12;	
