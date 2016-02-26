@@ -5,7 +5,7 @@
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
  
 	<style>
-		#map{height:600px;width:100%;}
+		#map{height:600px;width:100%;border:1px solid black;}
 		.explain{height:200px;width:100%;padding-top:5px;}
 		.legend{width:auto;position:absolute;right:20px;padding:10px;background-color:#D9D9DB;z-index: 10;display: block;opacity:0.8;}
 		.coloris{ width:15px; height:15px;float:left;margin-right:2px;opacity:0.4;}
