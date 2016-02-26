@@ -5,17 +5,21 @@
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
  
 	<style>
+		html,body,h1{padding:0;margin:0;}
 		#map{height:600px;width:100%;}
 		.explain{height:200px;width:100%;padding-top:5px;}
 		.legend{width:auto;position:absolute;right:20px;padding:10px;background-color:#D9D9DB;z-index: 10;display: block;opacity:0.8;}
 		.coloris{ width:15px; height:15px;float:left;margin-right:2px;opacity:0.4;}
 		.legend p{margin-bottom: 1px;margin-top: 0px;}
+		#header{height:60px;width:100%;background:#666666;color:white;text-align:center;line-height:50px;}
+		#wrap{height:auto;width:100%;overflow:hidden;min-height:900px;}
 	</style>
     <title>人员聚集迁徙效果展示</title>
 </head>
 
 <body onload="getMove()">
-
+<div id="header"><h1>人员聚集迁徙效果展示</h1></div>        
+	<div id="wrap">
 <div class="legend">
 <p><div class='coloris' style='background-color:#ffcc00;'></div>＜30人</p>
 <p><div class='coloris' style='background-color:#ff9900;'></div>30~60人</p>
@@ -24,6 +28,7 @@
 <p><div class='coloris' style='background-color:#ff0000;'></div>120人以上</p>
 </div>	
 <div id="map"></div>
+
 <div class=explain>
 <input type='button' id='stop' value="暂停"/>
 <input type='button' id='start' value="从头开始"/>
@@ -32,6 +37,7 @@
 <p>使用圆形标识表示地点，标识中数字代表当前地点有多少人。使用移动的小定位标识表示人员移动方向，下面的数字表示移动人数。</p>
 <p>本例的实现方式，请见<a href="http://leafxm.com/2016/02/20/mapShow/">我的博客</a></p>
 
+</div>
 </div>
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=vVx4BApDDaqHqv49noQqLiD1"></script>
 <script type="text/javascript" src="js/trace/trace.js" ></script>
