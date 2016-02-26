@@ -1,17 +1,17 @@
 // JavaScript Document
 
+	
 	var map = new BMap.Map("map",{minZoom:17,maxZoom:19});          // 创建地图实例
     var pt_center = new BMap.Point(116.364506, 39.969775);
     map.centerAndZoom(pt_center,19 );             // 初始化地图，设置中心点坐标和地图级别
     map.disableScrollWheelZoom(); // 不允许滚轮缩放
-	
 	//外层时间循环相关变量
 	var j=0;
     var TimeID=null;
 	//内层时间循环相关变量
 	 var movei=0;
      var moveTime=null;
-	 
+	
 	function  Bpoint(Longitude,Latitude) //声明对象
      {    
         this.Latitude= Latitude; 
