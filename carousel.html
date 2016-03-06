@@ -1,0 +1,140 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>轮播图展示</title>
+<link rel="stylesheet" type="text/css" href="css/carousel/carousel.css"/>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+
+</head>
+
+<body>
+ <div id="top">
+ 	<h1>轮播图</h1>
+ </div>
+ <div id="wrap">
+ 	<div class="img-show">
+    	<ul class="img-con">加载中……
+                <li><a><img src="img/carousel/1.jpg" alt="1"/></a></li>
+                <li><a><img src="img/carousel/2.jpg" alt="1"/></a></li>
+                <li><a><img src="img/carousel/3.jpg" alt="1"/></a></li>
+                <li><a><img src="img/carousel/4.jpg" alt="1"/></a></li>
+                <li><a><img src="img/carousel/5.jpg" alt="1"/></a></li>
+            </ul>  
+            <div class="pre"></div>
+     <div class="next"></div>
+    </div>
+   
+     <div class="label">
+     	<ul class="label-con">
+                <li><a><img src="img/carousel/label/1.jpg" alt=""/></a></li>
+                <li><a><img src="img/carousel/label/2.jpg" alt=""/></a></li>
+                <li><a><img src="img/carousel/label/3.jpg" alt=""/></a></li>
+                <li><a><img src="img/carousel/label/4.jpg" alt=""/></a></li>
+                <li><a><img src="img/carousel/label/5.jpg" alt=""/></a></li>
+            </ul>
+     </div>
+ 
+ </div>
+ 
+<script>     
+    var num=0,
+	   timer=null;
+
+	$(document).ready(function(){  	
+			 $('.pre').on('click',function(){
+               move_pre();
+            })
+            $('.next').on('click',function(){
+                move_next();
+            })
+            posn();
+            labelnail();
+            autoplay();	
+	
+	});
+       
+			//屏幕变化后重新定位
+        function posn(){
+			var wrap_width=$('#wrap').css('width'),
+			   img_li=$('.img-con li');
+            for(var i=0;i<img_li.length;i++){
+                img_li[i].style.width=wrap_width;
+            }
+            $('.img-con').css('left',-num*parseInt(wrap_width)+'px');
+            $('.pre').css('left',(parseInt(wrap_width)-700)/2+'px');
+            $('.next').css('left',(parseInt(wrap_width)-700)/2+650+'px');
+			 $('.label').css('left',parseInt(wrap_width-700)/2+50+'px');
+        };
+		//label设置
+        function labelnail() {
+			var label_li=$('.label-con li');
+			label_li.removeClass('select');
+			label_li[num].className='select';
+            for(var i=0;i<label_li.length;i++){
+                label_li[i].index=i;					
+                label_li[i].onclick=function(){
+                    if(this.index==num){
+                       return true;
+                    }else if(this.index>num){
+                        move_next(this.index);
+                    }else if(this.index<num){
+                        move_pre(this.index);
+                    }
+					 clearInterval(timer);
+                    timer=null;
+					autoplay();
+                }
+            };
+        };
+		
+      
+        function move_pre(n){
+			var wrap_width=$('#wrap').css('width');
+            var m;
+			var img_li=$('.img-con li');
+            if(num<=0){num=img_li.length};
+            num--;
+            n==undefined?m=num:m=n;
+            $('.img-con').animate({'left':-m*parseInt(wrap_width)+'px'},'slow','swing');      
+            num=m;
+            labelnail();
+        }
+        function move_next(n){
+			var wrap_width=$('#wrap').css('width');
+            var m;
+			 var img_li=$('.img-con li');
+			if(num>=img_li.length-1){num=-1};
+            num++;
+            n==undefined?m=num:m=n;
+            $('.img-con').animate({'left':-m*parseInt(wrap_width)+'px'},'slow','swing');        
+            num=m;
+            labelnail();
+        }
+  
+		//自动播放
+		  
+        function autoplay(){     
+            var    img=$('.img-con li img');
+            timer=setInterval(function(){
+                move_next();
+            },4000);
+            for(var i=0;i<img.length;i++){
+                img[i].onmouseover=$('.pre').get(0).onmouseover=$('.next').get(0).onmouseover=function(){
+                    clearInterval(timer);
+                    timer=null;
+                    this.onmouseout=function(){
+                       autoplay();
+                    }
+                }
+            }
+        }
+
+        window.onresize=function(){
+            posn();  
+        }
+
+
+    </script>
+</body>
+</html>
