@@ -30,7 +30,7 @@
 	<ul class="demolist">
 		<li>
 			<a href="http://leafxm.com" target="_blank" >
-				<div class="img" style="background:url(img/demo/myBlog.JPE">		
+				<div class="img" style="background:url(img/demo/myBlog.JPG">		
 				</div>
 				<div class="title">
 				我的博客
@@ -72,7 +72,7 @@
 				弹出层并列地图展示
 				</div>
 				<div class="description">
-                    	<p>实现弹出层中并列展示几个并列地图效果</p>
+                    	<p>实现根据所选项目个数在弹出层中展示几个并列地图效果</p>
                     </div>
 			</a>
 		</li>
