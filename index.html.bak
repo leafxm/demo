@@ -10,7 +10,7 @@
 		#header{height:50px;width:100%;background:black;color:white;text-align:center;line-height:50px;}
 		.wrap{height:auto;min-height:540px;width:100%;padding-bottom:30px;padding-top:30px;}
 		
-		ul{list-style:none;margin:0 auto;padding-left:80px;}
+		ul{list-style:none;margin:0 auto;padding-left:90px;}
 		.wrap ul li{float:left;border:1px solid #FFF;width:300px;height:225px;overflow:hidden;margin:25px 20px;box-shadow: 0px 5px 10px rgba(0,0,0,0.5);}
 		.wrap ul li a{display:block;float:left; text-decoration:none;color:black;}
 		.img{width:300px;height:225px;}
@@ -30,7 +30,7 @@
 	<ul class="demolist">
 		<li>
 			<a href="http://leafxm.com" target="_blank" >
-				<div class="img" style="background:url(img/demo/myBlog.jpg)">		
+				<div class="img" style="background:url(img/demo/myBlog.JPE">		
 				</div>
 				<div class="title">
 				我的博客
@@ -78,7 +78,7 @@
 		</li>
 		<li>
 			<a href="http://leafxm.com/demo/carousel" target="_blank" >
-				<div class="img" style="background:url(img/demo/carousel.jpg)">		
+				<div class="img" style="background:url(img/demo/carousel.JPG)">		
 				</div>
 				<div class="title">
 				轮播图
