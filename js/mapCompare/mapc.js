@@ -65,9 +65,9 @@
 		map1.clearOverlays();
 		map2.clearOverlays();
 		map3.clearOverlays();
-		data1.push(new signal(116.36175,39.968524,-110),new signal(116.36190,39.968524,-90),new signal(116.36205,39.968524,-80));
-		data2.push(new signal(116.36175,39.968524,-80),new signal(116.36190,39.968524,-100),new signal(116.36205,39.968524,-70));
-		data3.push(new signal(116.36175,39.968524,-90),new signal(116.36190,39.968524,-62),new signal(116.36205,39.968524,-100));
+		data1.push(new signal(116.36175,39.968524,-95),new signal(116.36190,39.968524,-90),new signal(116.36205,39.968524,-80),new signal(116.36220,39.968524,-82),new signal(116.36235,39.968524,-75));
+		data2.push(new signal(116.36175,39.968524,-95),new signal(116.36190,39.968524,-100),new signal(116.36205,39.968524,-110),new signal(116.36220,39.968524,-100),new signal(116.36235,39.968524,-90));
+		data3.push(new signal(116.36175,39.968524,-90),new signal(116.36190,39.968524,-62),new signal(116.36205,39.968524,-72),new signal(116.36220,39.968524,-80),new signal(116.36235,39.968524,-86));
 		document.all.div_show.style.display="block";
 		var str=document.getElementsByName("operator"); 
 		 $("#opeName1,#opeName2,#opeName3").html("");

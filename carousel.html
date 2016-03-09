@@ -81,7 +81,7 @@
                     }else if(this.index<num){
                         move_pre(this.index);
                     }
-					 clearInterval(timer);
+					clearInterval(timer);
                     timer=null;
 					autoplay();
                 }
@@ -118,7 +118,7 @@
             var    img=$('.img-con li img');
             timer=setInterval(function(){
                 move_next();
-            },4000);
+            },3000);
             for(var i=0;i<img.length;i++){
                 img[i].onmouseover=$('.pre').get(0).onmouseover=$('.next').get(0).onmouseover=function(){
                     clearInterval(timer);

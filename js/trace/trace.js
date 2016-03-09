@@ -38,13 +38,14 @@
 		}
 		map.setViewport(points);	
   			});
-	
+    map.addEventListener("tilesloaded",getMove);
 	function getMove(){   
 	    j = 0;
 		movei=0;
 	    window.clearTimeout(TimeID);
 		map.clearOverlays();
 		window.clearTimeout(moveTime);
+        map.removeEventListener("tilesloaded",getMove);
 		delay();
 	}
 	
