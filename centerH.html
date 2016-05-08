@@ -1,0 +1,300 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>垂直居中</title>
+	<style> 
+	p,li{margin:0;padding:0;}
+    ol{margin-top:0;}
+	.section{
+		padding:10px;
+		border-bottom:1px solid gray;}
+	.section:after{
+		content:"";
+		display:table;
+		clear:both;}
+	.parent{
+		height:200px;width:300px;
+		background-color:#cccccc;
+		margin-right:10px;
+		float:left;}
+	.explain{float:left;height:200px;width:320px;margin-right:10px;border-left:1px solid #cccccc;border-top:1px solid #cccccc;padding:10px 20px;}
+	.explain p{margin:3px;padding:0;}
+	.overflow-auto{overflow:auto;}
+	.is-relative{position:relative;}
+	.font-child{
+        height:auto;
+		line-height: 200px;
+		text-align:center;}
+
+    .is-padding{padding: 60px 0;height:auto;}
+    .padding-child{
+        padding: 40px 0;
+        width:100px;
+        background-color:#ff2;
+        text-align:center;
+        margin:0 auto;
+        }
+		
+	.absolute-child{
+        position: absolute;
+        margin: auto;  
+        top: 0; left: 0; bottom: 0; right: 0;   
+		width:100px;
+		height:120px;
+		background-color:#3399cc;	
+	}
+	
+    .negative-child {     
+        position: absolute;  
+        top: 50%; left: 50%;  
+        margin-left: -50px; /* (width of border-box)/2 */  
+        margin-top: -60px; /* (height of border-box)/2 */  
+		width: 100px;  
+        height: 120px; 
+		background-color:#ff0; 
+	}  
+	
+	.transformed-child {   
+		width: 50%;  
+		height:auto;
+		position: absolute;	
+		top: 50%; left: 50%;   
+		background-color:#99cc66; 
+		-webkit-transform: translate(-50%,-50%);  
+			-ms-transform: translate(-50%,-50%);  
+				transform: translate(-50%,-50%); 				
+	}  
+	  
+	.is-table{display:table;}
+	.table-cell{  
+		display: table-cell;  
+		vertical-align: middle; 
+	}	  
+	.table-child{ 
+		background:#99ccff; 
+		width: 50%;  
+		margin: 0 auto;  
+	}  
+
+	.is-inline{ 
+		text-align: center;
+	}
+	.is-inline:after,
+    .inline-child{
+		display: inline-block;
+		vertical-align: middle;
+	}
+	.is-inline:after {
+		content: '';
+		height: 100%;
+		margin-left: -0.25em; /* To offset spacing. May vary by font */
+	}
+	.inline-child {
+		max-width: 99%; /* Prevents issues with long content causes the content block to be pushed to the top */
+		/* max-width: calc(100% - 0.25em) /* Only for IE9+ */ 
+		background-color:#FCF;
+		width:50%;
+	}	
+	
+		
+	.is-flexbox{
+		display: -ms-flex;
+		display: -webkit-flex;
+		display: flex;
+        -ms-align-items: center;
+        -webkit-align-items: center;
+        align-items: center;
+        -ms-justify-content: center;
+        -webkit-justify-content: center;
+		justify-content: center;
+	}
+	.flex-child{
+		margin:auto;
+		background-color:#39F;
+		width:50%;
+		}
+	</style>
+  
+</head>
+<body>
+	<div class="section">
+		<h2>文字行高法</h2>
+		<div class="parent font-child">
+			<p>单行文字</p>
+           
+		</div>
+		<div class="explain">设置元素line-height为容器的高，适合单行文字</div>
+		<div class="explain">
+		<ol>特点：
+            <li>只对文本元素有效</li>
+            <li>只能显示一行</li>
+			<li>支持所有浏览器</li>
+         </ol>
+		</div>
+	</div>
+    
+	<div class="section">
+		<h2>绝对居中</h2>
+		<div class="parent is-relative">
+			<div class="absolute-child">如果内容比较多的时候，会子溢出容器的</div>
+		</div>
+		<div class="explain">
+			<p>设置父元素"position:relative;"</p>
+            <p>子元素定宽定高且：
+			<p>position: absolute;</p>  
+			<p>top: 0; left: 0; bottom: 0; right: 0;  </p>  
+			<p>margin: auto;  </p> 
+		</div>
+        <div class="explain">
+        	<ol>特点：
+                <li>宽度和高度要固定</li>
+                <li>内容较多时会溢出，可设置overflow:auto来防止内容溢出</li>
+                <li>支持图片居中</li> 
+                <li>IE8下无效</li>     
+             </ol>
+        </div>
+	</div>
+	<div class="section">
+		<h2>负margin距法</h2>
+		<div class="parent is-relative">
+			<div class="negative-child">如果内容比较多的时候，会子溢出容器的</div>
+		</div>
+		<div class="explain">
+        	<p>设置父元素"position:relative;"</p>
+            <p>子元素定宽定高且：</p>
+			<p>position:absolte;</p>  
+			<p>top: 50%; left: 50%;  </p>  
+			<p>margin-left: -50px; /* width/2 */ </p>   
+			<p>margin-top: -60px; /* height/2 */ </p> 
+			 	
+		</div>
+        <div class="explain">
+        	<ol>特点：
+                <li>宽度和高度要固定</li>
+                 <li>不能自适应。不支持百分比尺寸和min-/max-属性设置</li>          
+                 <li>内容较多时会溢出，可设置overflow:auto来防止内容溢出</li>
+                 <li>边距大小与padding,和是否定义box-sizing: border-box有关，计算需要根据不同情况</li>
+             </ol>
+        </div>
+	</div>
+
+	<div class="section">
+		<h2>表格单元格法</h2>
+		<div class="parent is-table">  
+			<div class="table-cell">  
+				这里只有两层标签，内容是文字 
+			</div>  
+		</div>  
+        <div class="parent is-table">  
+			<div class="table-cell">  
+				<div class="table-child">  
+                这里子元素是块状元素，内容溢出会把父容器撑开，表现是父容器变高
+				</div>  
+			</div>  
+		</div>  
+        <div class="explain">
+        最外层设置"display:table;",中层设置"display: table-cell;  
+		vertical-align: middle; ",内层可以是文字也可以是块状元素
+        
+        </div>
+        <div class="explain">
+        	<ol>特点：
+            	<li>内容块高度可以不确定</li>
+                <li>内容溢出会把父元素撑开，表现是父元素高度变大，且子元素和父元素高度一样</li>
+            	<li>可以适用于文字、图片和块状子元素的垂直居中</li>
+                <li>IE下无效</li>
+            </ol> 
+        </div>
+	</div>
+
+    <div class="section">
+        <h2>padding高底相等法</h2>
+        <div class="parent is-padding">
+            <div class="padding-child">文字居中</div>
+        </div>
+        <div class="parent is-padding">
+            <div class="padding-child"><p>文字居中</p><p>文字多行</p></div>
+        </div>
+        <div class="explain">
+            <p>父元素不设置高度，上下padding相同使块级子元素垂直居中。</p>
+            <p>子元素不设置高度，上下padding相同使文字内容垂直居中。</p>
+        </div>
+        <div class="explain">
+            <ol>特点：
+                <li>当子元素是块级、文字、图片时都可以实现垂直居中</li>
+                <li>子元素框会随内容改变高度，不存在溢出问题</li>
+                <li>支持所有浏览器</li>
+                <li>子、父元素不能固定高度</li>
+            </ol>
+        </div>
+    </div>
+
+	<div class="section">
+		<h2>行内块元素法</h2>
+		<div class="parent is-inline">
+			<div class="inline-child">
+				高度可变的
+			</div>
+		</div>
+        <div class="explain">基本思想是使用display: inline-block, vertical-align: middle,在用一个伪元素使得行内块元素的line box高度和父元素相同。定宽设置水平居中让父元素用"text-align:center;"。
+        </div>
+        <div class="explain">
+        	<ol>特点：
+                <li>内容块高度可以不确定</li>
+                <li>浏览器支持比较好</li>
+                <li>css设置的代码比较多</li>
+            </ol>
+        </div>
+	</div>
+	
+   
+    <div class="section">
+		<h2>块级元素变形法</h2>
+		<div class="parent is-relative">
+			<div class="transformed-child">记得带上浏览器厂商的前缀</div>
+		</div>
+        <div class="explain">
+        	<p>设置父元素"position:relative;"</p>
+            <p>子元素如下设置：</p>
+            <p>position: absolute;
+            <p>top: 50%; left: 50%;<p> 
+			<p>transform: translate(-50%,-50%); </p> 	 
+        </div>
+        <div class="explain">
+        	<ol>特点：
+				<li>内容块高度可以不确定</li>
+                <li>核心思路和负margin法相同</li>           
+                <li>可能干扰其他transform效果</li>
+   				<li>某些情形下会出现文本或元素边界渲染模糊的现象</li> 
+                <li>IE8及以下不支持</li>
+             </ol>
+        </div>
+	</div>
+	<div class="section">
+		<h2>flexbox法</h2>
+		<div class="parent is-flexbox">
+			<div class="flex-child">记得带上浏览器厂商的前缀</div>
+		</div>
+        <div class="parent is-flexbox">
+           子元素是文字也可以居中~
+        </div>
+        
+
+        <div class="explain">
+        <p>父元素需要加：display: flex;</p>
+        <p>子元素需要加：margin:auto</p>
+        <p>让父元素中的文字居中需要加：</p>
+        <p>align-items: center;justify-content: center;</p>
+        </div>
+        <div class="explain">
+        	<ol>特点：
+				<li>内容块高度可以不确定</li>
+                <li>可以运用于文字、图片、块级子元素
+                <li>可用于更复杂高级的布局技术中</li>
+            	<li> IE9及以下不支持</li>
+             </ol>
+        </div>
+	</div>
+</body>
+</html>
